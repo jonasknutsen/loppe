@@ -1,0 +1,46 @@
+[
+  {
+    "organizer": "Korsvoll skolekorps",
+    "place": "Korsvoll skole",
+    "address": "Peder Ankersvei 25",
+    "postalCode": "0861",
+    "city": "Oslo",
+    "area": ["Oslo", "Korsvoll skole"],
+    "mapCoordinates": "",
+    "openingHours": [
+      {
+        "from": 1636189200,
+        "to": 1636210800
+      },
+      {
+        "from": 1636282800,
+        "to": 1636297200
+      }
+    ],
+    "website": "http://www.korsvollsk.no/",
+    "facebook": "https://www.facebook.com/korsvolloppemarked/",
+    "slug": "loppemarked-korsvoll-skole"
+  },
+  {
+    "organizer": "Manglerud og Høyenhall Skolekorps",
+    "place": "Høyenhall skole",
+    "address": "Traktorveien 15",
+    "postalCode": "0678",
+    "city": "Oslo",
+    "area": ["Oslo", "Høyenhall skole"],
+    "mapCoordinates": "",
+    "openingHours": [
+      {
+        "from": 1636185600,
+        "to": 1636210800
+      },
+      {
+        "from": 1636275600,
+        "to": 1636293600
+      }
+    ],
+    "website": "https://www.skolekorpset.no",
+    "facebook": "https://nb-no.facebook.com/MHskolekorpset/",
+    "slug": "loppemarked-høyenhall-skole"
+  }
+]
