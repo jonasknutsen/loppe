@@ -8,8 +8,8 @@ import { hoursMinutes, date, day } from '../../utils/formatters'
 
 function Organizer ({ organizer, events }) {
   const now = new Date()
-  const upcomingEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() > now.getTime())
-  const previousEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() < now.getTime())
+  const upcomingEvents = events ? events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() > now.getTime()) : []
+  const previousEvents = events ? events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() < now.getTime()) : []
   return (
     <div>
       {organizer && (
@@ -75,6 +75,7 @@ export async function getStaticProps(context) {
   const { slug } = context.params
   const res = await fetch(`${process.env.API_HOST}/api/organizers/${slug}`, { headers: { apikey: process.env.API_KEY } })
   const data = await res.json()
+  console.log('data', data)
   return {
     props: {
       organizer: data[0],
