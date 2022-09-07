@@ -12,7 +12,7 @@ import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import ToolBar from '@mui/material/ToolBar'
+import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
@@ -84,7 +84,7 @@ function Header () {
     <Box>
       <AppBar position='static'>
         <Container maxWidth='md'>
-        <ToolBar>
+        <Toolbar>
           <IconButton
             size='large'
             edge='start'
@@ -158,7 +158,7 @@ function Header () {
               }}
             />
           </Search>
-        </ToolBar>
+        </Toolbar>
         </Container>
       </AppBar>
     </Box>
