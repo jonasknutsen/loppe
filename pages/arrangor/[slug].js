@@ -8,8 +8,8 @@ import { hoursMinutes, date, day } from '../../utils/formatters'
 
 function Organizer ({ organizer, events }) {
   const now = new Date()
-  const upcomingEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes.length - 1]).getTime() > now.getTime())
-  const previousEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes.length - 1]).getTime() < now.getTime())
+  const upcomingEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() > now.getTime())
+  const previousEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() < now.getTime())
   return (
     <div>
       {organizer && (
