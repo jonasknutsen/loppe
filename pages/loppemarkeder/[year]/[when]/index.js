@@ -86,7 +86,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { year, when } = context.params
-  const res = await fetch(`http://localhost:3001/api/events/${year}/${when}`)
+  const res = await fetch(`${process.env.API_HOST}/api/events/${year}/${when}`, { headers: { apikey: process.env.API_KEY } })
   const data = await res.json()
   return {
     props: {

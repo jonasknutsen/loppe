@@ -49,7 +49,7 @@ function Location ({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch(`http://localhost:3001/api/places`)
+  const res = await fetch(`${process.env.API_HOST}/api/places`, { headers: { apikey: process.env.API_KEY } })
   const data = await res.json()
   return {
     props: {

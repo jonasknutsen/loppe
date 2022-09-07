@@ -18,12 +18,8 @@ export const day = (timestamp) => {
 
 export function getMonday() {
   const today = new Date(new Date().setUTCHours(0,0,1))
-  console.log('today', today)
-  console.log('getDay', today.getDay())
   const first = today.getDate() - (today.getDay() - 3)
-  console.log('first', first)
   const monday = new Date(today.setDate(first))
-  console.log('monday', monday)
   return monday
 }
 

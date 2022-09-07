@@ -1,38 +1,17 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import Skeleton from '@mui/material/Skeleton'
 import StoreIcon from '@mui/icons-material/Store'
 import { hoursMinutes, date, day } from '../../utils/formatters'
 
-function Organizer () {
-  const router = useRouter()
-  const { slug } = router.query
-  const [organizer, setOrganizer] = useState(null)
-  const [events, setEvents] = useState(null)
-  const [isLoading, setLoading] = useState(false)
+function Organizer ({ organizer, events }) {
   const now = new Date()
   const upcomingEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes.length - 1]).getTime() > now.getTime())
   const previousEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes.length - 1]).getTime() < now.getTime())
-  useEffect(() => {
-    setLoading(true)
-    fetch(`/api/organizers/${slug}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setOrganizer(data[0])
-        setEvents(data[1])
-        setLoading(false)
-      })
-  }, [slug])
   return (
     <div>
-      {isLoading && <Skeleton variant='text' width={400} />}
-      {isLoading && <Skeleton variant='text' width={300} />}
-      {isLoading && <Skeleton variant='text' width={300} />}
       {organizer && (
         <Card sx={{ marginTop: '1.4rem' }}>
           <CardHeader
@@ -68,7 +47,7 @@ function Organizer () {
                       </div>
                     )
                   })}
-                  <div>Arrangeres av <Link href={`/arrangor/${event.slug}`}><a>{event.name}</a></Link></div>
+                  <div>Avholdt på <Link href={`/sted/${event.slug}`}><a>{event.name}</a></Link></div>
                 </div>
               )
             })}
@@ -77,6 +56,31 @@ function Organizer () {
               )}
     </div>
   )
+}
+
+export async function getStaticPaths() {
+  const res = await fetch(`${process.env.API_HOST}/api/organizers`, { headers: { apikey: process.env.API_KEY } })
+  const data = await res.json()
+  const paths = data.organizers.map(org => {
+    return (
+      { params: { slug: org.slug} }
+    )})
+  return {
+    paths,
+    fallback: false, // can also be true or 'blocking'
+  }
+}
+
+export async function getStaticProps(context) {
+  const { slug } = context.params
+  const res = await fetch(`${process.env.API_HOST}/api/organizers/${slug}`, { headers: { apikey: process.env.API_KEY } })
+  const data = await res.json()
+  return {
+    props: {
+      organizer: data[0],
+      events: data[1]
+    }
+  }
 }
 
 export default Organizer

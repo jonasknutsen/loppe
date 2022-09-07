@@ -1,39 +1,17 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import Skeleton from '@mui/material/Skeleton'
 import PlaceIcon from '@mui/icons-material/Place'
 import { hoursMinutes, date, day } from '../../utils/formatters'
 
-function Location () {
-  const router = useRouter()
-  const { slug } = router.query
-  const [place, setPlace] = useState(null)
-  const [events, setEvents] = useState(null)
-  const [isLoading, setLoading] = useState(false)
+function Location ({ place, events }) {
   const now = new Date()
   const upcomingEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes.length - 1]).getTime() > now.getTime())
   const previousEvents = events?.filter(event => new Date(event.closingtimes[event.closingtimes.length - 1]).getTime() < now.getTime())
-  useEffect(() => {
-    setLoading(true)
-    fetch(`/api/places/${slug}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('data', data)
-        setPlace(data[0])
-        setEvents(data[1])
-        setLoading(false)
-      })
-  }, [slug])
   return (
     <div>
-      {isLoading && <Skeleton variant='text' width={400} />}
-      {isLoading && <Skeleton variant='text' width={300} />}
-      {isLoading && <Skeleton variant='text' width={300} />}
       {place && (
         <Card sx={{ marginTop: '1.4rem' }}>
           <CardHeader
@@ -79,6 +57,31 @@ function Location () {
               )}
     </div>
   )
+}
+
+export async function getStaticPaths() {
+  const res = await fetch(`${process.env.API_HOST}/api/places`, { headers: { apikey: process.env.API_KEY } })
+  const data = await res.json()
+  const paths = data.places.map(place => {
+    return (
+      { params: { slug: place.slug} }
+    )})
+  return {
+    paths,
+    fallback: false, // can also be true or 'blocking'
+  }
+}
+
+export async function getStaticProps(context) {
+  const { slug } = context.params
+  const res = await fetch(`${process.env.API_HOST}/api/places/${slug}`, { headers: { apikey: process.env.API_KEY } })
+  const data = await res.json()
+  return {
+    props: {
+      place: data[0],
+      events: data[1]
+    }
+  }
 }
 
 export default Location

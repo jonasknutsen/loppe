@@ -9,7 +9,6 @@ import ListItemText from '@mui/material/ListItemText'
 import StoreIcon from '@mui/icons-material/Store'
 
 function Organizer ({ data }) {
-  console.log(data)
   return (
     <div>
       <h1>Loppemarkedarrangører</h1>
@@ -38,7 +37,7 @@ function Organizer ({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch(`http://localhost:3001/api/organizers`)
+  const res = await fetch(`${process.env.API_HOST}/api/organizers`, { headers: { apikey: process.env.API_KEY } })
   const data = await res.json()
   return {
     props: {
