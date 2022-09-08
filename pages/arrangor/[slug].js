@@ -75,7 +75,6 @@ export async function getStaticProps(context) {
   const { slug } = context.params
   const res = await fetch(`${process.env.API_HOST}/api/organizers/${slug}`, { headers: { apikey: process.env.API_KEY } })
   const data = await res.json()
-  console.log('data', data)
   return {
     props: {
       organizer: data[0],
