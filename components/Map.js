@@ -16,7 +16,6 @@ const Map = ({ place, size = 'medium' }) => {
     zoom: 12
   }
   const height = size === 'small' ? '25vh' : size === 'large' ? '100vh' : '50vh'
-  console.log(process.env.NEXT_PUBLIC_GOOGLE_API_KEY)
   return (
     <div style={{ height, width: '100%' }}>
       <GoogleMapReact

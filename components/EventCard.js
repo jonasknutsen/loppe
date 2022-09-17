@@ -112,9 +112,11 @@ const EventCard = ({ event }) => {
           <div>
             <strong>Adresse:</strong> {event.address}, {fullPostcode} {event.city}
           </div>
-          <div>
-            <a href={event.facebook}>Facebook-event</a>
-          </div>
+          {event.facebook && (
+            <div>
+              <a href={event.facebook}>Facebook-event</a>
+            </div>
+          )}
         </CardContent>
       </Collapse>
       <Menu

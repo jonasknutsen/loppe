@@ -6,6 +6,7 @@ import Head from 'next/head'
 import Header from '../../../../components/Header'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 
 export default function Home ({ data, year, when, places, organizers }) {
   const [events] = useState(data)
@@ -20,8 +21,8 @@ export default function Home ({ data, year, when, places, organizers }) {
         <title>Finn loppemarkeder i nærheten av deg - loppe.app</title>
       </Head>
       <Header places={places} organizers={organizers} />
-      {isNaN(when) && <h1>Loppemarkeder {when}en {year}</h1>}
-      {!isNaN(when) && <h1>Loppemarkeder uke {when} {year}</h1>}
+      {isNaN(when) && <Typography variant='h1' gutterBottom>Loppemarkeder {when}en {year}</Typography>}
+      {!isNaN(when) && <Typography variant='h1' gutterBottom>Loppemarkeder uke {when} {year}</Typography>}
       <Stack spacing={2}>
         {events?.map((event, key) => {
           return (
