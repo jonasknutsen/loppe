@@ -13,7 +13,6 @@ function Location ({ place, events, places, organizers }) {
   const now = new Date()
   const upcomingEvents = events ? events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() > now.getTime()) : []
   const previousEvents = events ? events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() < now.getTime()) : []
-  console.log(place)
   return (
     <>
       <Head>
