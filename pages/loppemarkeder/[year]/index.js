@@ -2,7 +2,7 @@ import { useState } from 'react'
 import EventCard from '../../../components/EventCard'
 import Stack from '@mui/material/Stack'
 
-export default function Home({ data, year }) {
+export default function Home ({ data, year }) {
   const [events] = useState(data)
 
   return (
@@ -19,14 +19,14 @@ export default function Home({ data, year }) {
   )
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths () {
   return {
     paths: [{ params: { year: '2022' } }],
-    fallback: false, // can also be true or 'blocking'
+    fallback: false
   }
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps (context) {
   const year = context.params.year
   const res = await fetch(`${process.env.API_HOST}/api/events/${year}`, { headers: { apikey: process.env.API_KEY } })
   const data = await res.json()

@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import '../styles/styles.css'
 import theme from '../styles/theme'
 
-function MyApp({ Component, pageProps }) {
+function MyApp ({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <Head>

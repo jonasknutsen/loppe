@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import Link from 'next/link'
 
-export default function Home({ data }) {
+export default function Home ({ data }) {
   return (
     <div>
       <h1>Loppemarkeder</h1>

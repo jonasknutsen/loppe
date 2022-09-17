@@ -1,41 +1,37 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { styled, alpha } from '@mui/material/styles'
-import AppBar from '@mui/material/AppBar'
+import { styled } from '@mui/material/styles'
 import Autocomplete from '@mui/material/Autocomplete'
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 import Drawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import PlaceIcon from '@mui/icons-material/Place'
 import StoreIcon from '@mui/icons-material/Store'
+import HomeIcon from '@mui/icons-material/Home'
 import TextField from '@mui/material/TextField'
-import DataPoints from '../data/datapoints.json'
+import { getAutocompleteOptions } from '../utils/formatters'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
+  borderColor: theme.palette.grey[300],
+  borderWidth: 1,
+  borderStyle: 'solid',
+  backgroundColor: theme.palette.common.white,
   marginLeft: 0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
+    width: 'auto'
+  }
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -44,30 +40,45 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'center'
 }))
 
 const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   width: '100%',
-  minWidth: '30ch',
+  minWidth: '40ch',
   paddingLeft: `calc(1em + ${theme.spacing(2)})`
 }))
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      border: 'none',
+      border: 'none'
     },
     '&:hover fieldset': {
-      border: 'none',
+      border: 'none'
     },
     '&.Mui-focused fieldset': {
-      border: 'none',
+      border: 'none'
     }
   }
 }))
 
-function Header () {
+const StyledHeader = styled('header')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between'
+}))
+
+const StyledPlaceholder = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.up('sm')]: {
+    display: 'block',
+    width: 48,
+    marginLeft: 16
+  }
+}))
+
+function Header ({ places, organizers }) {
   const router = useRouter()
   const [openMenu, setOpenMenu] = useState(false)
   const [searchPhrase, setSearchPhrase] = useState(null)
@@ -80,88 +91,77 @@ function Header () {
   const toggleDrawer = (open) => (event) => {
     setOpenMenu(open)
   }
+  const autocompleteOptions = getAutocompleteOptions(places, organizers)
   return (
-    <Box>
-      <AppBar position='static'>
-        <Container maxWidth='md'>
-        <Toolbar>
-          <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='open drawer'
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer
-            anchor='left'
-            open={openMenu}
-            onClose={toggleDrawer(false)}
-          >
-            <Box
-              role='presentation'
-              onClick={toggleDrawer(false)}
-              onKeyDown={toggleDrawer(false)}
-            >
-              <List>
-                <Link href='/kalender' passHref>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <CalendarMonthIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Kalender' />
-                  </ListItemButton>
-                </Link>
-                <Link href='/arrangor' passHref>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <StoreIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Arrangører' />
-                  </ListItemButton>
-                </Link>
-                <Link href='/sted' passHref>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <PlaceIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Steder' />
-                  </ListItemButton>
-                </Link>
-              </List>
-            </Box>
-          </Drawer>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            <Link href='/'><a>Loppe.app</a></Link>
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledAutocomplete
-              id="search-autocomplete"
-              value={searchPhrase}
-              options={DataPoints}
-              renderInput={(params) => <StyledTextField
-                {...params}
-                aria-label='Søk etter arrangør eller sted'
-              />}
-              onChange={(event, newValue) => {
-                handleSearchInput(event, newValue);
-              }}
-            />
-          </Search>
-        </Toolbar>
-        </Container>
-      </AppBar>
-    </Box>
+    <StyledHeader>
+      <IconButton
+        size='large'
+        edge='start'
+        color='inherit'
+        aria-label='open drawer'
+        sx={{ mr: 2 }}
+        onClick={toggleDrawer(true)}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Drawer
+        anchor='left'
+        open={openMenu}
+        onClose={toggleDrawer(false)}
+      >
+        <Box
+          role='presentation'
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+        >
+          <List>
+            <Link href='/' passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary='Forside' />
+              </ListItemButton>
+            </Link>
+            <Link href='/arrangor' passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <StoreIcon />
+                </ListItemIcon>
+                <ListItemText primary='Arrangører' />
+              </ListItemButton>
+            </Link>
+            <Link href='/sted' passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PlaceIcon />
+                </ListItemIcon>
+                <ListItemText primary='Steder' />
+              </ListItemButton>
+            </Link>
+          </List>
+        </Box>
+      </Drawer>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledAutocomplete
+          id='search-autocomplete'
+          value={searchPhrase}
+          options={autocompleteOptions}
+          renderInput={(params) => (
+            <StyledTextField
+              {...params}
+              aria-label='Søk etter arrangør eller sted'
+            />)}
+          onChange={(event, newValue) => {
+            handleSearchInput(event, newValue)
+          }}
+        />
+      </Search>
+      <StyledPlaceholder />
+    </StyledHeader>
   )
 }
 

@@ -1,12 +1,25 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import Box from '@mui/material/Box'
 import EventCard from '../../../../components/EventCard'
+import Head from 'next/head'
+import Header from '../../../../components/Header'
+import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 
-export default function Home({ data, year, when }) {
+export default function Home ({ data, year, when, places, organizers }) {
   const [events] = useState(data)
+  const router = useRouter()
+  const handlePagination = (event, page) => {
+    router.push(`/loppemarkeder/${year}/${page}`)
+  }
 
   return (
     <div>
+      <Head>
+        <title>Finn loppemarkeder i nærheten av deg - loppe.app</title>
+      </Head>
+      <Header places={places} organizers={organizers} />
       {isNaN(when) && <h1>Loppemarkeder {when}en {year}</h1>}
       {!isNaN(when) && <h1>Loppemarkeder uke {when} {year}</h1>}
       <Stack spacing={2}>
@@ -16,11 +29,14 @@ export default function Home({ data, year, when }) {
           )
         })}
       </Stack>
+      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '12px', marginBottom: '12px' }}>
+        <Pagination count={52} defaultPage={parseInt(when)} siblingCount={2} onChange={handlePagination} />
+      </Box>
     </div>
   )
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths () {
   return {
     paths: [
       { params: { year: '2022', when: 'vår' } },
@@ -78,21 +94,27 @@ export async function getStaticPaths() {
       { params: { year: '2022', when: '49' } },
       { params: { year: '2022', when: '50' } },
       { params: { year: '2022', when: '51' } },
-      { params: { year: '2022', when: '52' } },
+      { params: { year: '2022', when: '52' } }
     ],
-    fallback: false, // can also be true or 'blocking'
+    fallback: false
   }
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps (context) {
   const { year, when } = context.params
   const res = await fetch(`${process.env.API_HOST}/api/events/${year}/${when}`, { headers: { apikey: process.env.API_KEY } })
   const data = await res.json()
+  const organizersRes = await fetch(`${process.env.API_HOST}/api/organizers`, { headers: { apikey: process.env.API_KEY } })
+  const organizersData = await organizersRes.json()
+  const placesRes = await fetch(`${process.env.API_HOST}/api/places`, { headers: { apikey: process.env.API_KEY } })
+  const placesData = await placesRes.json()
   return {
     props: {
       data,
       year,
-      when
+      when,
+      organizers: organizersData.organizers,
+      places: placesData.places
     }
   }
 }

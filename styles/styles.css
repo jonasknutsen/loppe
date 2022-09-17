@@ -8,3 +8,6 @@ html, body, #__next, .app {
 main {
   flex: 1;
 }
+body {
+  background-color: #fafafa;
+}
