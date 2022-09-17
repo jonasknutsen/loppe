@@ -18,7 +18,7 @@ export default function Home ({ data, year, when, places, organizers }) {
   return (
     <div>
       <Head>
-        <title>Finn loppemarkeder i nærheten av deg - loppe.app</title>
+        <title>Loppemarkeder {when}en {year} - loppe.app</title>
       </Head>
       <Header places={places} organizers={organizers} />
       {isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder {when}en {year}</Typography>}
