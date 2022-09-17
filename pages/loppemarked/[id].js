@@ -1,6 +1,7 @@
 import EventCard from '../../components/EventCard'
 import Head from 'next/head'
 import Header from '../../components/Header'
+import Typography from '@mui/material/Typography'
 import { getSimpleDate } from '../../utils/formatters'
 
 function Event ({ event, places, organizers }) {
@@ -12,7 +13,7 @@ function Event ({ event, places, organizers }) {
       </Head>
       <Header places={places} organizers={organizers} />
       <main>
-        <h1>Loppemarked på {event.place} {getSimpleDate(event.openingtimes)}</h1>
+        <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarked på {event.place} {getSimpleDate(event.openingtimes)}</Typography>
         <EventCard event={event} />
       </main>
     </div>

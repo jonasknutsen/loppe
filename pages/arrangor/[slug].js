@@ -6,6 +6,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Head from 'next/head'
 import Header from '../../components/Header'
 import StoreIcon from '@mui/icons-material/Store'
+import Typography from '@mui/material/Typography'
 import { hoursMinutes, date, day } from '../../utils/formatters'
 
 function Organizer ({ organizer, events, organizers, places }) {
@@ -22,10 +23,14 @@ function Organizer ({ organizer, events, organizers, places }) {
         <Card sx={{ marginTop: '1.4rem' }}>
           <CardHeader
             avatar={<Avatar><StoreIcon /></Avatar>}
-            title={organizer.name}
+            title={<Typography variant='h5' component='h1'>{organizer.name}</Typography>}
           />
           <CardContent>
-            Neste loppemarked
+            {organizer.website && <Typography variant='body1' gutterBottom><a href={organizer.website}>Hjemmeside for {organizer.name}</a></Typography>}
+            {organizer.facebook && <Typography variant='body1' gutterBottom><a href={organizer.facebook}>Facebookside for {organizer.name}</a></Typography>}
+          </CardContent>
+          <CardContent>
+            <Typography variant='h6' component='h2' gutterBottom>Neste loppemarked</Typography>
             {upcomingEvents?.map((event, key) => {
               return (
                 <div key={key}>
@@ -42,7 +47,7 @@ function Organizer ({ organizer, events, organizers, places }) {
             })}
           </CardContent>
           <CardContent>
-            Tidligere loppemarked
+            <Typography variant='h6' component='h2' gutterBottom>Tidligere loppemarked</Typography>
             {previousEvents?.map((event, key) => {
               return (
                 <div key={key}>

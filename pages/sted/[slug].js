@@ -7,6 +7,7 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import Map from '../../components/Map'
 import PlaceIcon from '@mui/icons-material/Place'
+import Typography from '@mui/material/Typography'
 import { hoursMinutes, date, day } from '../../utils/formatters'
 
 function Location ({ place, events, places, organizers }) {
@@ -24,12 +25,12 @@ function Location ({ place, events, places, organizers }) {
           <Card sx={{ marginTop: '1.4rem' }}>
             <CardHeader
               avatar={<Avatar><PlaceIcon /></Avatar>}
-              title={place.name}
+              title={<Typography variant='h5' component='h1'>{place.name}</Typography>}
               subheader={`${place.address}, ${place.postcode < 1000 ? '0' + place.postcode : place.postcode} ${place.city}`}
             />
             {place.longitude && place.latitude && <CardContent><Map place={place} /></CardContent>}
             <CardContent>
-              <strong>Neste loppemarked</strong>
+              <Typography variant='h6' component='h2' gutterBottom>Neste loppemarked</Typography>
               {upcomingEvents?.map((event, key) => {
                 return (
                   <div key={key}>
@@ -46,7 +47,7 @@ function Location ({ place, events, places, organizers }) {
               })}
             </CardContent>
             <CardContent>
-              <strong>Tidligere loppemarked</strong>
+              <Typography variant='h6' component='h2' gutterBottom>Tidligere loppemarked</Typography>
               {previousEvents?.map((event, key) => {
                 return (
                   <div key={key}>

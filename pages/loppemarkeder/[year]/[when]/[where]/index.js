@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import EventCard from '../../../../../components/EventCard'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 
 export default function Home ({ data, year, when, where }) {
   const [events] = useState(data)
 
   return (
     <div>
-      {isNaN(when) && <h1>Loppemarkeder i {where} {when}en {year}</h1>}
-      {!isNaN(when) && <h1>Loppemarkeder i {where} uke {when} {year}</h1>}
+      {isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder i {where} {when}en {year}</Typography>}
+      {!isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder i {where} uke {when} {year}</Typography>}
       <Stack spacing={2}>
         {events?.map((event, key) => {
           return (

@@ -8,6 +8,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import StoreIcon from '@mui/icons-material/Store'
+import Typography from '@mui/material/Typography'
 import { getSimpleDate, isPast } from '../../utils/formatters'
 
 function Organizer ({ events, organizers, places }) {
@@ -17,7 +18,7 @@ function Organizer ({ events, organizers, places }) {
         <title>Finn loppemarkeder i nærheten av deg - loppe.app</title>
       </Head>
       <Header places={places} organizers={organizers} />
-      <h1>Loppemarkedarrangører</h1>
+      <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkedarrangører</Typography>
       <Card>
         <List>
           {organizers.map((org, key) => {
@@ -63,7 +64,7 @@ export async function getStaticProps (context) {
   return {
     props: {
       events: eventsData.events,
-      organizers: organizersData.organizers,
+      organizers: organizersData.organizers.sort((a, b) => a.name.localeCompare(b.name, 'no-NO')),
       places: placesData.places
     }
   }

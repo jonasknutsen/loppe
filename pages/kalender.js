@@ -1,9 +1,10 @@
 import Layout from '../components/Layout'
+import Typography from '@mui/material/Typography'
 
 function Kalender () {
   return (
     <Layout>
-      <h1>Kalender</h1>
+      <Typography variant='h4' component='h1' align='center' gutterBottom>Kalender</Typography>
     </Layout>
   )
 }

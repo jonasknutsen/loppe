@@ -21,8 +21,8 @@ export default function Home ({ data, year, when, places, organizers }) {
         <title>Finn loppemarkeder i nærheten av deg - loppe.app</title>
       </Head>
       <Header places={places} organizers={organizers} />
-      {isNaN(when) && <Typography variant='h1' gutterBottom>Loppemarkeder {when}en {year}</Typography>}
-      {!isNaN(when) && <Typography variant='h1' gutterBottom>Loppemarkeder uke {when} {year}</Typography>}
+      {isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder {when}en {year}</Typography>}
+      {!isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder uke {when} {year}</Typography>}
       <Stack spacing={2}>
         {events?.map((event, key) => {
           return (

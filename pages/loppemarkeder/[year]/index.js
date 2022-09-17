@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import EventCard from '../../../components/EventCard'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 
 export default function Home ({ data, year }) {
   const [events] = useState(data)
 
   return (
     <div>
-      <h1>Loppemarkeder i {year}</h1>
+      <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder i {year}</Typography>
       <Stack spacing={2}>
         {events?.map((event, key) => {
           return (

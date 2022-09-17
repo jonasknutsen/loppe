@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 
 export default function Home ({ events, places, organizers, week, year }) {
@@ -18,8 +19,8 @@ export default function Home ({ events, places, organizers, week, year }) {
       </Head>
       <Header places={places} organizers={organizers} />
       <main>
-        <h1>Loppemarkeder som arrangeres den kommende uken</h1>
-        <h2>I uke {week} har vi registrert {events.length} loppemarkeder</h2>
+        <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder som arrangeres den kommende uken</Typography>
+        <Typography variant='h5' component='h2' align='center' gutterBottom>I uke {week} har vi registrert {events.length} loppemarkeder</Typography>
         <Stack spacing={2}>
           {events?.map((event, key) => {
             return (

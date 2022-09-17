@@ -66,7 +66,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 const StyledHeader = styled('header')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  marginBottom: '1em'
 }))
 
 const StyledPlaceholder = styled('div')(({ theme }) => ({
