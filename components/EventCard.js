@@ -48,7 +48,8 @@ const EventCard = ({ event }) => {
   const mapArray = [{
     latitude: event.latitude,
     longitude: event.longitude,
-    name: event.name
+    name: event.place,
+    slug: event.place_slug
   }]
   return (
     <Card sx={{ minWidth: 275 }}>

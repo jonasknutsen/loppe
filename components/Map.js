@@ -1,9 +1,40 @@
+import { useState } from 'react'
 import GoogleMapReact from 'google-map-react'
+import Link from 'next/link'
 import RoomIcon from '@mui/icons-material/Room'
+import Popover from '@mui/material/Popover'
+import Typography from '@mui/material/Typography'
 
-const MapMarker = ({ text }) => {
+const MapMarker = ({ text, slug }) => {
+  const [anchorEl, setAnchorEl] = useState(null)
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const open = Boolean(anchorEl)
+  const id = open ? 'loppemarked-navn' : undefined
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
   return (
-    <RoomIcon fontSize='large' sx={{ color: '#2E5EAA', transform: 'translate(-50%, -100%)' }} />
+    <div>
+      <RoomIcon fontSize='large' sx={{ color: '#2E5EAA', transform: 'translate(-50%, -100%)' }} onClick={handleClick} />
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center'
+        }}
+      >
+        <Typography sx={{ p: 2 }}><Link href={`/sted/${slug}`}><a>{text}</a></Link></Typography>
+      </Popover>
+    </div>
   )
 }
 
@@ -36,6 +67,7 @@ const Map = ({ places, size = 'medium' }) => {
               lat={place.latitude}
               lng={place.longitude}
               text={place.name}
+              slug={place.slug}
             />
           )
         })}

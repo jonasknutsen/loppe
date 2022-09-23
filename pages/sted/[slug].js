@@ -14,6 +14,7 @@ function Location ({ place, events, places, organizers }) {
   const now = new Date()
   const upcomingEvents = events ? events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() > now.getTime()) : []
   const previousEvents = events ? events?.filter(event => new Date(event.closingtimes[event.closingtimes?.length - 1]).getTime() < now.getTime()) : []
+  const placesArray = [place]
   return (
     <>
       <Head>
@@ -28,7 +29,7 @@ function Location ({ place, events, places, organizers }) {
               title={<Typography variant='h5' component='h1'>{place.name}</Typography>}
               subheader={`${place.address}, ${place.postcode < 1000 ? '0' + place.postcode : place.postcode} ${place.city}`}
             />
-            {place.longitude && place.latitude && <CardContent><Map place={place} /></CardContent>}
+            {place.longitude && place.latitude && <CardContent><Map places={placesArray} /></CardContent>}
             <CardContent>
               <Typography variant='h6' component='h2' gutterBottom>Neste loppemarked</Typography>
               {upcomingEvents?.map((event, key) => {
