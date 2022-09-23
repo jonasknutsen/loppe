@@ -45,11 +45,11 @@ const EventCard = ({ event }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
-  const mapObject = {
+  const mapArray = [{
     latitude: event.latitude,
     longitude: event.longitude,
     name: event.name
-  }
+  }]
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardHeader
@@ -69,7 +69,7 @@ const EventCard = ({ event }) => {
         title={<strong><Link href={`/sted/${event.place_slug}`}><a>{event.place}</a></Link></strong>}
         subheader={<Link href={`/arrangor/${event.organizer_slug}`}><a>{event.organizer}</a></Link>}
       />
-      {event.latitude && event.longitude && <Map place={mapObject} size='small' />}
+      {event.latitude && event.longitude && <Map places={mapArray} size='small' />}
       <CardContent>
         <Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: 2 }}>
           <CalendarMonthIcon sx={{ marginRight: '8px' }} />

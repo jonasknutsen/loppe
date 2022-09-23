@@ -7,13 +7,19 @@ const MapMarker = ({ text }) => {
   )
 }
 
-const Map = ({ place, size = 'medium' }) => {
+const Map = ({ places, size = 'medium' }) => {
+  const sortedLat = places.map(place => place.latitude).sort()
+  const sortedLong = places.map(place => place.longitude).sort()
+  const highestLat = sortedLat[0]
+  const highestLong = sortedLong[0]
+  const lowestLat = sortedLat[sortedLat.length - 1]
+  const lowestLong = sortedLong[sortedLong.length - 1]
   const defaultProps = {
     center: {
-      lat: place.latitude,
-      lng: place.longitude
+      lat: (highestLat + lowestLat) / 2,
+      lng: (highestLong + lowestLong) / 2
     },
-    zoom: 12
+    zoom: places.length === 1 ? 12 : 9
   }
   const height = size === 'small' ? '25vh' : size === 'large' ? '100vh' : '50vh'
   return (
@@ -23,11 +29,16 @@ const Map = ({ place, size = 'medium' }) => {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <MapMarker
-          lat={place.latitude}
-          lng={place.longitude}
-          text={place.name}
-        />
+        {places.map((place, key) => {
+          return (
+            <MapMarker
+              key={key}
+              lat={place.latitude}
+              lng={place.longitude}
+              text={place.name}
+            />
+          )
+        })}
       </GoogleMapReact>
     </div>
   )
