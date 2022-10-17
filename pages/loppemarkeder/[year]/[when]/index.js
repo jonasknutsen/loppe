@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import EventCard from '../../../../components/EventCard'
 import Head from 'next/head'
 import Header from '../../../../components/Header'
+import MapCard from '../../../../components/MapCard'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -14,7 +15,16 @@ export default function Home ({ data, year, when, places, organizers }) {
   const handlePagination = (event, page) => {
     router.push(`/loppemarkeder/${year}/${page}`)
   }
-
+  const mapArray = events.map(event => {
+    return (
+      {
+        latitude: event.latitude,
+        longitude: event.longitude,
+        name: event.place,
+        slug: event.place_slug
+      }
+    )
+  })
   return (
     <div>
       <Head>
@@ -23,7 +33,9 @@ export default function Home ({ data, year, when, places, organizers }) {
       <Header places={places} organizers={organizers} />
       {isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder {when}en {year}</Typography>}
       {!isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder uke {when} {year}</Typography>}
+      {!isNaN(when) && <Typography variant='h5' component='h2' align='center' gutterBottom>I uke {when} har vi registrert {events.length} loppemarkeder</Typography>}
       <Stack spacing={2}>
+        <MapCard places={mapArray} />
         {events?.map((event, key) => {
           return (
             <EventCard key={key} event={event} />
