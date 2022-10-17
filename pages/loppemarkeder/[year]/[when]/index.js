@@ -35,7 +35,7 @@ export default function Home ({ data, year, when, places, organizers }) {
       {!isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder uke {when} {year}</Typography>}
       {!isNaN(when) && <Typography variant='h5' component='h2' align='center' gutterBottom>I uke {when} har vi registrert {events.length} loppemarkeder</Typography>}
       <Stack spacing={2}>
-        <MapCard places={mapArray} />
+        {!isNaN(when) && <MapCard places={mapArray} />}
         {events?.map((event, key) => {
           return (
             <EventCard key={key} event={event} />
