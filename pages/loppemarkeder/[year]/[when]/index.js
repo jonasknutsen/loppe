@@ -28,7 +28,8 @@ export default function Home ({ data, year, when, places, organizers }) {
   return (
     <div>
       <Head>
-        <title>Loppemarkeder {when}en {year} - loppe.app</title>
+        {isNaN(when) && <title>Loppemarkeder {when}en {year} - loppe.app</title>}
+        {!isNaN(when) && <title>Loppemarkeder uke {when} {year} - loppe.app</title>}
       </Head>
       <Header places={places} organizers={organizers} />
       {isNaN(when) && <Typography variant='h4' component='h1' align='center' gutterBottom>Loppemarkeder {when}en {year}</Typography>}
