@@ -13,6 +13,7 @@ export default function Home ({ events, places, organizers, week, year }) {
   const handlePagination = (event, page) => {
     router.push(`/loppemarkeder/${year}/${page}`)
   }
+  console.log('events', events)
   const mapArray = events.map(event => {
     return (
       {
@@ -49,14 +50,15 @@ export default function Home ({ events, places, organizers, week, year }) {
 }
 
 export async function getStaticProps (context) {
-  const year = 2022
-  const week = 42
+  const year = 2023
+  const week = 12
   const eventsRes = await fetch(`${process.env.API_HOST}/api/events/${year}/${week}`, { headers: { apikey: process.env.API_KEY } })
   const eventsData = await eventsRes.json()
   const organizersRes = await fetch(`${process.env.API_HOST}/api/organizers`, { headers: { apikey: process.env.API_KEY } })
   const organizersData = await organizersRes.json()
   const placesRes = await fetch(`${process.env.API_HOST}/api/places`, { headers: { apikey: process.env.API_KEY } })
   const placesData = await placesRes.json()
+  console.log(eventsData)
   return {
     props: {
       week,
