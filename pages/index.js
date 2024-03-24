@@ -49,10 +49,11 @@ export default function Home ({ events, places, organizers, week, year }) {
 }
 
 export async function getStaticProps (context) {
-  const year = 2023
-  const week = 38
+  const year = 2024
+  const week = 14
   const eventsRes = await fetch(`${process.env.API_HOST}/api/events/${year}/${week}`, { headers: { apikey: process.env.API_KEY } })
   const eventsData = await eventsRes.json()
+  console.log(eventsData)
   const organizersRes = await fetch(`${process.env.API_HOST}/api/organizers`, { headers: { apikey: process.env.API_KEY } })
   const organizersData = await organizersRes.json()
   const placesRes = await fetch(`${process.env.API_HOST}/api/places`, { headers: { apikey: process.env.API_KEY } })

@@ -4,7 +4,7 @@ function Footer () {
   return (
     <footer>
       <Container maxWidth='md' sx={{ textAlign: 'center' }}>
-        &copy; 2022 Loppe.app
+        &copy; 2024 Loppe.app
       </Container>
     </footer>
   )
