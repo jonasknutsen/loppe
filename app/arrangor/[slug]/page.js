@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Header from '../../components/Header'
-import OrganizerCard from '../../components/organizerCard'
+import OrganizerCard from '../../components/OrganizerCard'
 
 export default async function Page ({ params }) {
   const res = await fetch(`${process.env.API_HOST}/api/organizers/${params.slug}`, { headers: { apikey: process.env.API_KEY } })

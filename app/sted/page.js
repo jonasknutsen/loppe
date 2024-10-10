@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import CityCard from '../components/cityCard'
+import CityCard from '../components/CityCard'
 import Header from '../components/Header'
 
 export default async function Page () {
