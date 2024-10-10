@@ -1,5 +1,7 @@
+'use client'
+
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { styled } from '@mui/material/styles'
 import Autocomplete from '@mui/material/Autocomplete'

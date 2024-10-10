@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import GoogleMapReact from 'google-map-react'
 import Link from 'next/link'
@@ -32,7 +34,7 @@ const MapMarker = ({ text, slug }) => {
           horizontal: 'center'
         }}
       >
-        <Typography sx={{ p: 2 }}><Link href={`/sted/${slug}`}><a>{text}</a></Link></Typography>
+        <Typography sx={{ p: 2 }}><Link href={`/sted/${slug}`}>{text}</Link></Typography>
       </Popover>
     </div>
   )

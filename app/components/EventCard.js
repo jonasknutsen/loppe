@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import Avatar from '@mui/material/Avatar'
@@ -67,8 +69,8 @@ const EventCard = ({ event }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={<strong><Link href={`/sted/${event.place_slug}`}><a>{event.place}</a></Link></strong>}
-        subheader={<Link href={`/arrangor/${event.organizer_slug}`}><a>{event.organizer}</a></Link>}
+        title={<strong><Link href={`/sted/${event.place_slug}`}>{event.place}</Link></strong>}
+        subheader={<Link href={`/arrangor/${event.organizer_slug}`}>{event.organizer}</Link>}
       />
       {event.latitude && event.longitude && <Map places={mapArray} size='small' />}
       <CardContent>
@@ -135,7 +137,7 @@ const EventCard = ({ event }) => {
           horizontal: 'right'
         }}
       >
-        <MenuItem><Link href={`/loppemarked/${event.id}`}><a>Side for loppemarkedet</a></Link></MenuItem>
+        <MenuItem><Link href={`/loppemarked/${event.id}`}>Side for loppemarkedet</Link></MenuItem>
       </Menu>
     </Card>
   )
